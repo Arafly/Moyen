@@ -5,7 +5,7 @@ using Moyen.Features.Articles;
 
 namespace Moyen.Controllers
 {
-    [Route("articles]")]
+    [Route("articles")]
     public class ArticlesController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Moyen.Features.Articles;
 using Moyen.Infrastructure;
 using Moyen.Persistence.Contexts;
 
@@ -34,9 +35,11 @@ namespace Moyen
         {
             services.AddDbContext<MoyenContext>(opt =>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                // opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
-            // services.AddMediatR(Assembly.GetExecutingAssemby());
+            
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddCors();
             // services.AddScoped<IPasswordHasher, PasswordHasher>();
             // services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();

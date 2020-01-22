@@ -40,13 +40,8 @@ namespace Moyen.Features.Articles
             }
 
             public async Task<ArticlesEnvelope> Handle(Query message, CancellationToken cancellationToken) {
+                // IQueryable<Article> queryable = _context.Articles.ToListAsync();
                 IQueryable<Article> queryable = _context.Articles.GetAllData();
-
-                // if (message.IsFeed && _currentUser.GetCurrentUsername() != null)
-                // {
-                //     var currentUser = await _context.Persons.Include(x => x.Following).FirstOrDefaultAsync(x => x.Username == _currentUserAccessor.GetCurrentUsername(), cancellationToken);
-                //     queryable = queryable.Where(x => currentUser.Following.Select(y => y.TargetId).Contains(x.Author.PersonId));
-                // }
 
                 if(!string.IsNullOrWhiteSpace(message.Tag)){
                     var tag = await _context.ArticleTags.FirstOrDefaultAsync(x => x.TagId == message.Tag, cancellationToken);
@@ -57,13 +52,18 @@ namespace Moyen.Features.Articles
                     }
                 }
 
-                // var articles = await queryable
+                var articles = await queryable
+                    // .OrderByDescending(x => x.CreatedAt)
+                    // .Skip(message.Offset ?? 0)
+                    // .Take(message.Limit ?? 20)
+                    .AsNoTracking()
+                    .ToListAsync(cancellationToken);
 
-                return new ArticlesEnvelope(){
-                    // Articles = articles,
+                return new ArticlesEnvelope()
+                {
+                    Articles = articles,
                     ArticlesCount = queryable.Count()
                 };
-
             }
         }
     }

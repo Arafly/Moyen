@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Moyen.Domain.Models;
 using Moyen.Infrastructure;
 using Moyen.Infrastructure.Errors;
 using Moyen.Persistence.Contexts;
@@ -40,7 +41,7 @@ namespace Moyen.Features.Articles {
                     .FirstOrDefaultAsync (cancellationToken);
 
                 if (article == null) {
-                    // throw new RestException(HttpStatusCode.NotFound, new {Article= Constants.NOT_FOUND});
+                    throw new RestException (HttpStatusCode.NotFound, new { Article = Constants.NOT_FOUND });
                 }
 
                 // A user can decide to edit only one or more of the field
@@ -61,14 +62,72 @@ namespace Moyen.Features.Articles {
                 // Add the new article tags
                 await _context.ArticleTags.AddRangeAsync (articleTagsToCreate, cancellationToken);
                 //delete the tags that do not exist anymore
-                await _context.ArticleTags.RemoveRange (articleTagsToDelete);
+                _context.ArticleTags.RemoveRange (articleTagsToDelete);
 
                 await _context.SaveChangesAsync (cancellationToken);
 
-                return new ArticleEnvelope (await _context.Articles.GetAllData()
+                return new ArticleEnvelope (await _context.Articles.GetAllData ()
                     .Where (x => x.Slug == article.Slug)
                     .FirstOrDefaultAsync (cancellationToken));
             }
+
+            /// <summary>
+            /// get the list of Tags to be added
+            /// </summary>
+            /// <param name="articleTagList"></param>
+            /// <returns></returns>
+            public async Task<List<Tag>> GetTagsToCreate (IEnumerable<string> articleTagList) {
+                var tagsToCreate = new List<Tag> ();
+
+                foreach (var tag in articleTagList) {
+                    var t = await _context.Tags.FindAsync (tag);
+                    if (t == null) {
+                        t = new Tag () {
+                        TagId = tag
+                        };
+                        tagsToCreate.Add (t);
+                    }
+                }
+
+                return tagsToCreate;
+            }
+
+            /// <summary>
+            /// check which article tags need to be added
+            /// </summary>
+            static List<ArticleTag> GetArticleTagsToCreate (Article article, IEnumerable<string> articleTagList){
+                var articleTagsToCreate = new List<ArticleTag>();
+                foreach(var tag in articleTagList){
+                    var ag = article.ArticleTags.FirstOrDefault(t => t.TagId == tag);
+                    if(ag == null){
+                        ag = new ArticleTag(){
+                            Article = article,
+                            ArticleId = article.ArticleId,
+                            Tag = new Tag() { TagId = tag },
+                            TagId = tag
+                        };
+                        articleTagsToCreate.Add(ag);
+                    }
+                }
+
+                return articleTagsToCreate;
+            }
+
+            /// <summary>
+            /// check which article tags needs to be deleted
+            /// </summary>
+            static List<ArticleTag> GetArticleTagsToDelete (Article article, IEnumerable<string> articleTagList){
+                var articleTagsToDelete = new List<ArticleTag>();
+                foreach(var tag in article.ArticleTags){
+                    var ag = articleTagList.FirstOrDefault(t => t == tag.TagId);
+                    if(ag == null){
+                        articleTagsToDelete.Add(tag);
+                    }
+                }
+
+                return articleTagsToDelete;
+            }
+
         }
 
     }
