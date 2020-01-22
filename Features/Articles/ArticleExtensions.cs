@@ -11,6 +11,7 @@ namespace Moyen.Features.Articles
                             .Include(x => x.ArticleFaves)
                             .Include(x => x.ArticleTags)
                             .AsNoTracking();
+            
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Moyen.Domain.Models
         public string Description { get; set; }
         public string Body { get; set; }
         public Person Author { get; set; }
-        public List<Comment> Comments { get; set; }
+        // public List<Comment> Comments { get; set; }
 
         [JsonIgnore]
         public List<ArticleFave> ArticleFaves { get; set; }

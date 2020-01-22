@@ -27,7 +27,7 @@ namespace Moyen
                 {
                     var context = services.GetRequiredService<MoyenContext>();
                     context.Database.Migrate();
-                    Seed.SeedData(context);
+                    // Seed.SeedData(context);
                 }
                 catch (Exception ex)
                 {
@@ -44,3 +44,31 @@ namespace Moyen
                 .UseStartup<Startup>();
     }
 }
+
+
+// using Microsoft.AspNetCore.Hosting;
+// using Microsoft.Extensions.Configuration;
+// using Moyen;
+
+// namespace Moyen
+// {
+//     public class Program
+//     {
+//         public static void Main(string[] args)
+//         {
+//             // read database configuration (database provider + database connection) from environment variables
+//             var config = new ConfigurationBuilder()
+//                 // .AddEnvironmentVariables()
+//                 .Build();
+
+//             var host = new WebHostBuilder()
+//                 // .UseConfiguration(config)
+//                 // .UseKestrel()
+//                 // .UseUrls($"http://+:5000")
+//                 .UseStartup<Startup>()
+//                 .Build();
+
+//             host.Run();
+//         }
+//     }
+// }

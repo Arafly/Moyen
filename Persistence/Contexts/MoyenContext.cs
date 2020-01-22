@@ -5,12 +5,14 @@ namespace Moyen.Persistence.Contexts
 {
     public class MoyenContext : DbContext
     {
-        public DbSet<Person> Persons { get; set; }
+        
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<ArticleFave> ArticleFaves { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<ArticleTag> ArticleTags { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
 
         public MoyenContext(DbContextOptions options) : base(options) { }
 
