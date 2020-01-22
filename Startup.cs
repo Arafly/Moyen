@@ -39,7 +39,7 @@ namespace Moyen
                 // opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             
-            // services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddCors();
             // services.AddScoped<IPasswordHasher, PasswordHasher>();
             // services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
