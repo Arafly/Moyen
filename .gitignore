@@ -1,0 +1,12 @@
+bin/
+obj/
+migrations/
+
+appsettings.Development.json
+appsettings.json
+
+.vs
+.vscode
+.DS_Store
+
+*.db
