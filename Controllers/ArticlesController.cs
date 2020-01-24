@@ -20,16 +20,17 @@ namespace Moyen.Controllers
             return await _mediator.Send(new List.Query(tag, author, faved ));
         }
 
-        // [HttpGet("{slug}")]
-        // public async Task<ArticleEnvelope> Get(string slug){
-        //     return await _mediator.Send(new Details.Query(slug));
-        // }
+        [HttpGet("{slug}")]
+        public async Task<ArticleEnvelope> Get(string slug){
+            return await _mediator.Send(new Details.Query(slug));
+        }
 
-//         [HttpPost]
-//         // [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
-//         public async Task<ArticleEnvelope> Create([FromBody]Create.Command command){
-//             return await _mediator.Send(command);
-//         }
+        [HttpPost]
+        // [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
+        public async Task<ArticleEnvelope> Create([FromBody]Create.Command command){
+            return await _mediator.Send(command);
+        }
+
 
 //         [HttpPut("{slug}")]
 //         // [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]

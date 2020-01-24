@@ -39,7 +39,6 @@ namespace Moyen.Features.Articles
             }
 
             public async Task<ArticlesEnvelope> Handle(Query message, CancellationToken cancellationToken) {
-                // IQueryable<Article> queryable = _context.Articles.ToListAsync();
                 IQueryable<Article> queryable = _context.Articles.GetAllData();
 
                 if(!string.IsNullOrWhiteSpace(message.Tag)){
