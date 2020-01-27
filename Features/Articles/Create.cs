@@ -38,43 +38,43 @@ namespace Moyen.Features.Articles {
             }
 
             // public async Task<ArticleEnvelope> Handle (Command message, CancellationToken cancellationToken) {
-            //     // var author = await _context.Persons.FirstAsync (x => x.Username == _currentUser.GetCurrentUsername (), cancellationToken);
+                // var author = await _context.Persons.FirstAsync (x => x.Username == _currentUser.GetCurrentUsername (), cancellationToken);
 
-            //     // var tags = new List<Tag> ();
-            //     // foreach (var tag in (message.Article.TagList ?? Enumerable.Empty<string> ())) {
-            //     //     var t = await _context.Tags.FindAsync (tag);
-            //     //     if (t == null) {
-            //     //         t = new Tag () {
-            //     //         TagId = tag
-            //     //         };
-            //     //         await _context.Tags.AddAsync (t, cancellationToken);
-            //     //         // Save immediately for reuse
-            //     //         await _context.SaveChangesAsync (cancellationToken);
-            //     //     }
-            //     //     tags.Add (t);
-            //     // }
+                // var tags = new List<Tag> ();
+                // foreach (var tag in (message.Article.TagList ?? Enumerable.Empty<string> ())) {
+                //     var t = await _context.Tags.FindAsync (tag);
+                //     if (t == null) {
+                //         t = new Tag () {
+                //         TagId = tag
+                //         };
+                //         await _context.Tags.AddAsync (t, cancellationToken);
+                //         // Save immediately for reuse
+                //         await _context.SaveChangesAsync (cancellationToken);
+                //     }
+                //     tags.Add (t);
+                // }
 
-            //     var article = new Article () {
-            //         // Author = author,
-            //      //   Body = message.Article.Body,
-            //      //   Description = message.Article.Title,
-            //         CreatedAt = DateTime.UtcNow,
-            //         UpdatedAt = DateTime.UtcNow,
-            //         // Slug = message.Article.Title.GenerateSlug ()
+                // var article = new Article () {
+                //     // Author = author,
+                //  //   Body = message.Article.Body,
+                //  //   Description = message.Article.Title,
+                //     CreatedAt = DateTime.UtcNow,
+                //     UpdatedAt = DateTime.UtcNow,
+                //     // Slug = message.Article.Title.GenerateSlug ()
 
-            //     };
+                // };
 
-            //     await _context.Articles.AddAsync (article, cancellationToken);
+                // await _context.Articles.AddAsync (article, cancellationToken);
 
-            //     // await _context.ArticleTags.AddRangeAsync (tags.Select (x => new ArticleTag () {
+                // await _context.ArticleTags.AddRangeAsync (tags.Select (x => new ArticleTag () {
 
-            //     //     Article = article,
-            //     //         Tag = x
-            //     // }), cancellationToken);
+                //     Article = article,
+                //         Tag = x
+                // }), cancellationToken);
 
-            //     await _context.SaveChangesAsync (cancellationToken);
+                // await _context.SaveChangesAsync (cancellationToken);
 
-            //     return new ArticleEnvelope (article);
+                // return new ArticleEnvelope (article);
             // }
 
             public async Task<ArticleEnvelope> Handle(Command request, CancellationToken cancellationToken)

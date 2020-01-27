@@ -15,10 +15,10 @@ namespace Moyen.Domain.Models
         [JsonIgnore]
         public List<ArticleFave> ArticleFaves { get; set; }
 
-        //[JsonIgnore]
-        //public byte[] Hash { get; set; }
+        [JsonIgnore]
+        public byte[] Hash { get; set; }
 
-        //[JsonIgnore]
-        //public byte[] Salt { get; set; }
+        [JsonIgnore]
+        public byte[] Salt { get; set; }
     }
 }

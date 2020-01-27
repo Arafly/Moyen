@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,14 +30,16 @@ namespace Moyen
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 // opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
-            services.AddMediatR(typeof(List.Handler).Assembly);
+
+            // services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(Startup));
             services.AddCors();
             // services.AddScoped<IPasswordHasher, PasswordHasher>();
             // services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ICurrentUser, CurrentUser>();
             // services.AddScoped<IProfileReader, ProfileReader>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
         }
